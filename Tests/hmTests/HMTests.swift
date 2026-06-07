@@ -43,7 +43,28 @@ import Testing
 @Test func freshnessRouterDetectsCurrentQuestions() {
     #expect(SearchRouter.shouldSearch("what is the latest pnpm version"))
     #expect(SearchRouter.shouldSearch("look up the current git docs for worktree"))
+    #expect(SearchRouter.shouldSearch("search the web for swift foundationmodels examples"))
     #expect(!SearchRouter.shouldSearch("what does git reset soft do"))
+    #expect(!SearchRouter.shouldSearch("what version command shows node version"))
+    #expect(!SearchRouter.shouldSearch("how do I use the github api from curl"))
+    #expect(!SearchRouter.shouldSearch("where are git docs installed locally"))
+}
+
+@Test func dotenvParserReadsTavilyKeyAndIgnoresComments() {
+    let values = AppEnvironment.parseDotEnv("""
+    # comment
+    export TAVILY_API_KEY="tvly-test"
+    OTHER=value
+    """)
+
+    #expect(values["TAVILY_API_KEY"] == "tvly-test")
+    #expect(values["OTHER"] == "value")
+}
+
+@Test func tavilyClientConfigurationReflectsKeyPresence() {
+    #expect(TavilyClient(apiKey: "tvly-test").isConfigured)
+    #expect(!TavilyClient(apiKey: "").isConfigured)
+    #expect(!TavilyClient(apiKey: nil).isConfigured)
 }
 
 @Test func terminalRendererRemovesNoisyMarkdownAndANSIEscapes() {
