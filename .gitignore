@@ -1,0 +1,20 @@
+.DS_Store
+
+# SwiftPM
+.build/
+Packages/
+.swiftpm/configuration/
+.swiftpm/xcode/package.xcworkspace/
+
+# Xcode
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# Local secrets
+.netrc
+.env
+
+# Local binaries/logs
+*.log
+hm
